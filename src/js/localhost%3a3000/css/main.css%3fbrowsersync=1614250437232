@@ -65,39 +65,14 @@ header .menu{
 
 header .menu-collapse {
     position: absolute;
+    bottom: -1.2em;
     border: 1px solid black;
-    padding: 2px 18px;
+    padding: 0 18px;
     font-size: 20px;
-    max-height: 0px;
-    opacity: 0;
-    overflow: hidden;
-    top: 1.5em;
-    transition: all 0.5s ease;
-}
-
-header .menu-collapse span {
-    overflow: hidden;
-
-}
-header .menu:hover {
-    max-height: 30px;
-    opacity: 1;
-    cursor: pointer;
-}
-
-header .menu:hover .menu-collapse{
-    max-height: 30px;
-    opacity: 1;
-}
-header .menu:hover #arrow {
-    transform: rotate(90deg);
 }
 
 #arrow{
-    display: inline-block;
-    transform: rotate(180deg);
-    transition: transform 0.5s ease;  
-    font-size: 17px;  
+    transform: rotateY(88deg);
 }
 .menu-collapse span:hover {
     text-decoration: underline;
