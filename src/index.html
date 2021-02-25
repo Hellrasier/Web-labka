@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>FIZ KEK</title>
+</head>
+<body>
+
+
+    <header>
+        <img class="logo" src="img/logo.jpg" alt="fiz-logo">
+        <h2>Welcome to our Fiz kek!</h2>
+        <div class="menu">
+            <span id="sign">Sign Up</span>
+        </div>
+    </header>
+
+
+    <aside class="modal" id="modal">
+        <div class="modal-block" id="md-block">
+            <div class="cross" id="cross"><span>✖</span></div>
+            <div class="modal-head"><h3>Sign up</h2></div>
+            <form class="modal-form">
+                <label>
+                    <span>Name and surnmae</span>
+                    <input type="text" pattern="[A-ZА-ЯІЇЄ][a-zA-Z0-9а-яА-ЯіІїЇєЄ]+\s[A-ZА-ЯІЇЄ][a-zA-Z0-9а-яА-ЯіІїЇєЄ]+" >
+                </label>
+                <label>
+                    <span>Group</span>
+                    <input type="text" pattern="[A-ZА-ЯІЇЄ]{2}-\d{2}">
+                </label>
+                <label>
+                    <span>Phone</span>
+                    <input type="tel" pattern="^(\+)?(\d{10}|\d{12})$">
+                </label>
+                <label>
+                    <span>E-mail</span>
+                    <input type="email" pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$">
+                </label>
+                <button class="sign-button" type="submit"><h4>Sign up</h4></button>
+            </form>
+        </div>
+    </aside>
+
+    <section class="intr">
+        <div class="intro">
+            <video poster="video/nyak.png" controls>
+                <source src="video/nyakovlev.mp4" type="video/mp4"/>
+            </video>
+            <h3>The minute for praisng our glorious Sensei</h3>
+            <h5>(But don't fall down to crypta)</h5>
+        </div>
+    </section>
+    <section class="history">
+        <h3 class="section-header">A brief history of Fiz-Kek</h3>
+        <div class="history-card">
+            <div class="image">
+                <img src="img/polyana.jpg" alt="hist photo">
+            </div>
+            <div class="descr">
+                <p class="age">10 000 BCE</p>
+                <p>Students preaparing Polyana for a party. The Wheel isn't invented, so there are no shopping carts on trees</p>
+            </div>
+        </div>
+        <div class="history-card">
+            <div class="image">
+                <img src="img/daypervokura.jpg" alt="hist photo">
+            </div>
+            <div class="descr">
+                <p class="age">228 BCE</p>
+                <p>The day of Pervokour on square of Knowledge. Of course the loudest phrase heard is "FTI"</p>
+            </div>
+        </div>
+        <div class="history-card">
+            <div class="image">
+                <img src="img/kibbezes.png" alt="hist photo">
+            </div>
+            <div class="descr">
+                <p class="age">Year 1337</p>
+                <p>Primates defending chat against the zatylky Kibbezi, the fight is tough and bloody</p>
+            </div>
+        </div>
+        <div class="history-card">
+            <div class="image">
+                <img src="img/hitler.jpg" alt="hist photo">
+            </div>
+            <div class="descr">
+                <p class="age">Year 1939</p>
+                <p>KPI Live lecture for pervokours about how to be a true active super-duper kpishnik and fight bureaucracy and corruption</p>
+            </div>
+        </div>
+        <div class="history-card">
+            <div class="image">
+                <img src="img/prog.jpg" alt="hist photo">
+            </div>
+            <div class="descr">
+                <p class="age">Year 1972</p>
+                <p>Student trying to programm a bubble sort 7 days long. And still this shit doesn't work</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="info">
+            <p>NTUU Igor Sikorsky KPI</p> 
+            <p>tel: + 380 44 204 9494</p>
+            <p>email: KPI_adminka_mail@kpi.ua</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
