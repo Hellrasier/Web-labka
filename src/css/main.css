@@ -3,6 +3,10 @@ body {
 
 }
 
+h3, h4, h5 {
+    font-family: 'Titillium Web', sans-serif;
+}
+
 h2 {
     font-size: 35px;
     font-family: 'Bungee', cursive;
@@ -10,31 +14,28 @@ h2 {
 h3{
     font-size: 28px;
     margin: 12px 0;
-    font-family: 'Titillium Web', sans-serif;
     font-weight: 600;
 }
 
 h4{
     margin-block: 0;
-    font-family: 'Titillium Web', sans-serif;
 }
 
 h5{
     margin: 5px 0;
     font-size: 20px;
-    font-family: 'Titillium Web', sans-serif;
+}
+
+p, span {
+    font-family: 'PT Sans', sans-serif;
 }
 
 p{
     padding: 10px;
     margin-block: 0;
     font-size: 18px;
-    font-family: 'PT Sans', sans-serif;
 }
 
-span{
-    font-family: 'PT Sans', sans-serif;
-}
 
 
 header {
