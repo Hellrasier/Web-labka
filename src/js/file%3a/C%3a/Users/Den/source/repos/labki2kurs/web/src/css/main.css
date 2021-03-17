@@ -3,6 +3,10 @@ body {
 
 }
 
+h3, h4, h5 {
+    font-family: 'Titillium Web', sans-serif;
+}
+
 h2 {
     font-size: 35px;
     font-family: 'Bungee', cursive;
@@ -10,30 +14,26 @@ h2 {
 h3{
     font-size: 28px;
     margin: 12px 0;
-    font-family: 'Titillium Web', sans-serif;
     font-weight: 600;
 }
 
 h4{
     margin-block: 0;
-    font-family: 'Titillium Web', sans-serif;
 }
 
 h5{
     margin: 5px 0;
     font-size: 20px;
-    font-family: 'Titillium Web', sans-serif;
+}
+
+p, span, button, input {
+    font-family: 'PT Sans', sans-serif;
 }
 
 p{
     padding: 10px;
     margin-block: 0;
     font-size: 18px;
-    font-family: 'PT Sans', sans-serif;
-}
-
-span{
-    font-family: 'PT Sans', sans-serif;
 }
 
 
@@ -44,6 +44,7 @@ header {
     max-height: 13vh;
     border-bottom: 2px solid black;
     padding: 0.5em;
+    z-index: -1;
 }
 
 header img {
@@ -65,14 +66,41 @@ header .menu{
 
 header .menu-collapse {
     position: absolute;
-    bottom: -1.5em;
     border: 1px solid black;
     padding: 2px 18px;
     font-size: 20px;
+    max-height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    top: 1.5em;
+    transition: all 0.5s ease;
+    z-index: 10;
+    background-color: #fff;
+}
+
+header .menu-collapse span {
+    overflow: hidden;
+
+}
+header .menu:hover {
+    max-height: 75px;
+    opacity: 1;
+    cursor: pointer;
+}
+
+header .menu:hover .menu-collapse{
+    max-height: 31px;
+    opacity: 1;
+}
+header .menu:hover #arrow {
+    transform: rotate(90deg);
 }
 
 #arrow{
-    transform: rotateZ(9deg);
+    display: inline-block;
+    transform: rotate(180deg);
+    transition: transform 0.5s ease;  
+    font-size: 17px;  
 }
 .menu-collapse span:hover {
     text-decoration: underline;
@@ -101,7 +129,7 @@ header .menu-collapse {
     min-width: 500px;
     padding: 25px;
     position: relative;
-    margin: 4em;
+    margin: 3em;
     z-index: 5 !important;
     order: 0
 }
@@ -126,6 +154,8 @@ header .menu-collapse {
 
 .modal-form label {
     display: flex;
+    position: relative;
+    flex-wrap: wrap;
     padding: 15px 0;
 }
 
@@ -141,6 +171,21 @@ label input{
     border-radius: 5px;
     border: 1.5px solid rgb(32, 97, 216);
     outline: none;
+}
+
+label input::placeholder {
+    color:red;
+    font-weight: bold;
+}
+
+label #error-input {
+    position: absolute;
+    bottom: -5px;
+    left: 33%;
+    flex-basis: 100%;
+    font-size: 14px;
+    color: red;
+    padding-top: 5px;
 }
 
 .intro{
@@ -174,6 +219,41 @@ label input{
 }
 .sign-button h4{
     text-align: center;
+}
+
+.modal-content {
+    padding: 15px;
+}
+
+.modal-content .field{ 
+    font-size: 20px;
+    padding: 10px 0;
+    display: flex;
+}
+
+.modal-content .field .key{
+    flex-basis: 25%;
+    text-align: center;
+}
+
+.modal-content .field .info{
+    font-weight: bold;
+}
+
+.modal-content .field button{
+    font-size: 16px;
+    margin: 0 15px;
+    justify-self: flex-end;
+}
+
+.modal-content .field input{
+    font-size: 16px;
+    margin: 0 15px;
+    justify-self: flex-end;
+}
+
+.modal-content .field .n-vis{
+    display: none;
 }
 
 .intro video {
