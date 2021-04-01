@@ -222,8 +222,37 @@ label #error-input {
     text-align: center;
 }
 
+.get-button{
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    left: 3em;
+    font-size: 27px;
+    width: 70%;
+    background-color: rgb(32, 97, 216);
+    color:#fff;
+    margin: 0 auto;
+    margin-top: 15px;
+    border-radius: 15px;
+    padding: 7px 10px;
+    transition: all 0.4s ease;
+    outline: none;
+    border: none;
+}
+
+.get-button:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.get-button h4{
+    text-align: center;
+}
+
+
 .modal-content {
     padding: 15px;
+    display: relative;
 }
 
 .modal-content .field{ 

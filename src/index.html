@@ -84,12 +84,12 @@
                 <div class="field" id="age">
                     <span class="key">Age:</span>
                     <span class="info"></span>
-                    <button class="arrow" onclick="plusOne(this); student.moveToNextCourse()">▲</button>
+                    <button class="arrow" onclick="plusOne(this, 'getOlder');">▲</button>
                 </div>
                 <div class="field" id="course">
                     <span class="key">Course:</span>
                     <span class="info"></span>
-                    <button class="arrow" onclick="plusOne(this); student.getOlder()">▲</button>
+                    <button class="arrow" onclick="plusOne(this, 'moveToNextCourse');">▲</button>
                 </div>
                 <div class="field" id="group">
                     <span class="key">Group:</span>
@@ -97,6 +97,7 @@
                     <button class="change" onclick="revealInput(this)">change</button>
                     <input id="group" class="n-vis" onfocusout="inputGroup(this); hideInput(this);">
                 </div>
+                <button class="get-button" onclick="getStudent()"><h4>Get student</h4></button>
             </div>
         </div>
     </aside>
@@ -120,8 +121,7 @@
             <video poster="video/nyak.png" controls>
                 <source src="video/nyakovlev.mp4" type="video/mp4"/>
             </video>
-            <h3>The minute for praisng our glorious Sensei</h3>
-            <h5>(But don't fall down to crypta)</h5>
+            <h3>Mathmod luche vseh and dont go to crypta</h3>
         </div>
     </section>
     <section class="history">

@@ -74,19 +74,24 @@ var student = {
     course: 0,
     group: '**-**',
     getOlder: function() {
-        this.age = this.age+1
+        this.age = parseInt(this.age)+1
+        updateStudent().then(data => console.log(data))
     },
     changeSurname: function(new_sur) {
         this.surname = new_sur
+        updateStudent().then(data => console.log(data))
     },
     changeName: function(new_nam) {
         this.name = new_nam
+        updateStudent().then(data => console.log(data))
     },
     moveToNextCourse: function() {
-        this.course = this.course+1
+        this.course = parseInt(this.course)+1
+        updateStudent().then(data => console.log(data))
     },
     changeGroup: function(grp) {
         this.group = grp
+        updateStudent().then(data => console.log(data))
     }
 }   
 
@@ -99,11 +104,49 @@ function createStudent(name, surname, age, course, group) {
 }
 
 function displayStudent() {
-    for(key in student) {
+    for(let key in student) {
+        console.dir(student)
         if (key == "getOlder") return 
         var selector = modal2.querySelector('#' + key)
         selector.children[1].innerText = student[key]
     }
+}
+
+function postStudent() {
+    var http = new XMLHttpRequest()
+    http.open('POST', '/api/student/')
+    http.send(JSON.stringify(student))
+    http.onload = function() {
+        console.log(`Request status ${http.status}: ${http.statusText}; response: ${http.response}`)
+    }
+    http.onerror = function() {
+        alert("Error couldn't make a request")
+    }
+}
+
+function getStudent() {
+    var http = new XMLHttpRequest()
+    http.open('GET', '/api/student/')
+    http.send()
+    http.onload = function() {
+        console.log(`Request status ${http.status}: ${http.statusText}; response: ${http.response}`)
+        student = {...student, ...JSON.parse(http.response)}
+        console.log(student)
+        displayStudent()
+    }
+    http.onerror = function() {
+        alert("Error couldn't make a request")
+    }
+}
+
+async function updateStudent() {
+   return fetch('/api/student', {
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        body: JSON.stringify(student)
+    }).then(response => response.json())
 }
 
 form.onsubmit = function() {
@@ -114,7 +157,7 @@ form.onsubmit = function() {
     form.querySelector('#group').value)
     modal.classList.remove('visible')
     modal2.classList.add('visible')
-    displayStudent()
+    postStudent()
     return false
 }
 
@@ -146,14 +189,11 @@ function inputGroup(elem) {
     student.changeGroup(name)
 }
 
-function plusOne(elem) {
+function plusOne(elem, method) {
     var number = parseInt(elem.parentNode.children[1].innerText) + 1
     elem.parentNode.children[1].innerText = number
+    student[method]()
 }
-
-// for(let inp of form.querySelectorAll('input')) {
-//     inp.addEventListener('focusout', checkInput)
-// }
 
 $('.modal-form').validate({
     onfocusout: checkInput
