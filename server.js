@@ -86,7 +86,6 @@ server.on('error', err => {
     if (err.code == 'EACCES') {
         console.log(`No access to port ${port}`)
     }
-
 })
 
 server.listen(port, hostname, () => {
