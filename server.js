@@ -2,8 +2,6 @@ const http = require('http')
 const fs = require('fs')
 const {readFile} = fs.promises
 
-const hostname = '127.0.0.1'
-const port = 7000
 const path_static = './src/'
 
 const api = {      // api - это набор действий, который производит сервер с данными
@@ -83,12 +81,10 @@ server.on('request', async (req, res) => {
 })
 
 server.on('error', err => {
-    if (err.code == 'EACCES') {
-        console.log(`No access to port ${port}`)
-    }
+     console.log(err)
 })
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`)
+server.listen(process.env.PORT || 5000, () => {
+    console.log(`Server running`)
 })
 
