@@ -61,9 +61,14 @@ function printSucces(el) {
 function checkInput(element) {
     var input = element.target == undefined ? element : element.target
     var reg = new RegExp(input.getAttribute('pattern'))
-    if(input.value == '') return
-    else if (!input.value.match(reg)) printError(input)
-    else printSucces(input)
+    if(input.value == '') return false
+    else if (!input.value.match(reg)) {
+        printError(input)
+        return false
+    } else {
+        printSucces(input)
+        return false
+    }
     
 }
 
@@ -150,14 +155,17 @@ async function updateStudent() {
 }
 
 form.onsubmit = function() {
-    createStudent(form.querySelector('#name-surname').value.split(' ')[0],
+    const inputs = [form.querySelector('#name-surname').value.split(' ')[0],
     form.querySelector('#name-surname').value.split(' ')[1],
     form.querySelector('#age').value,
     form.querySelector('#course').value,
-    form.querySelector('#group').value)
-    modal.classList.remove('visible')
-    modal2.classList.add('visible')
-    postStudent()
+    form.querySelector('#group').value]
+    if (inputs.every(checkInput)){
+        createStudent(...inputs)
+        modal.classList.remove('visible')
+        modal2.classList.add('visible')
+        postStudent()
+    }
     return false
 }
 
@@ -195,9 +203,9 @@ function plusOne(elem, method) {
     student[method]()
 }
 
-$('.modal-form').validate({
-    onfocusout: checkInput
-})
+// $('.modal-form').validate({
+//     onfocusout: checkInput
+// })
 
 
 function checkString(text) {
