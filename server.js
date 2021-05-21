@@ -7,18 +7,21 @@ const path_static = './src/'
 const api = {      // api - это набор действий, который производит сервер с данными
     'student': {
         'GET': () => {
-            const data = memory.get('Ruban')
+            const data = memory.entries()
             console.log(data)
-            return JSON.stringify(data)
+            return JSON.stringify(Array.from(data))
         },
         'POST': body => {
+            console.log('hey')
             const data = JSON.parse(body)
-            memory.set(data.surname, data)
+            memory.set(memory.size, data)
+            console.log(`Body got: ${JSON.stringify(memory)}`)
             return `The student with params\n` + JSON.stringify(data) + '\n Succesfully posted'
         },
         'PUT': body => {
+            console.log(body)
             const data = JSON.parse(body)
-            memory.set(data.surname, data)
+            memory.set(data[0], data[1])
             return `The student updated\n` + JSON.stringify(data)
         }
     }
@@ -32,8 +35,8 @@ const MIME_TYPES = {
     js: 'application/javascript',
     png: 'image/png',
     jpg: 'image/jpeg',
-    mp4: 'video/mp4'
-}
+    mp4: 'video/mp  4'
+}   
 
 const getBody = req => new Promise((resolve) => {
     const buffer = [];
@@ -66,6 +69,7 @@ server.on('request', async (req, res) => {
             res.end(answer)
         }
         catch (err){
+            console.log(err)
             res.statusCode = '404'
             res.end(err.toString())
         }

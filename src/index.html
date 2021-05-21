@@ -49,11 +49,11 @@
                     <input type="text" pattern="[A-ZА-ЯІЇЄ]{2}-\d{2}" id="group">
                     <span id="error-input"></span>
                 </label>
-                <!-- <label>
-                    <span>Phone</span>
-                    <input type="tel" pattern="^(\+)?(\d{10}|\d{12})$">
+                <label>
+                    <span>Faculty</span>
+                    <input type="text" pattern="^[A-ZА-ЯІЇЄ]*$" id="faculty">
                     <span id="error-input"></span>
-                </label> -->
+                </label>
                 <label>
                     <span>E-mail</span>
                     <input type="email" pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$">
@@ -67,37 +67,12 @@
     <aside class="modal" id="modal2">
         <div class="modal-block" id="md-block">
             <div class="cross" id="cross2"><span>✖</span></div>
-            <div class="modal-head"><h3>Student</h2></div>
+            <div class="modal-head"><h3>Students</h2></div>
             <div class="modal-content">
-                <div class="field" id="name">
-                    <span class="key">Name:</span>
-                    <span class="info"></span>
-                    <button class="change" onclick="revealInput(this)">change</button>
-                    <input id="name" class="n-vis" onfocusout="inputName(this); hideInput(this);">
+                <div id="student_display">
+
                 </div>
-                <div class="field" id="surname">
-                    <span class="key">Surname:</span>
-                    <span class="info"></span>
-                    <button class="change" onclick="revealInput(this)">change</button>
-                    <input id="surname" class="n-vis" onfocusout="inputSurname(this); hideInput(this);">
-                </div>
-                <div class="field" id="age">
-                    <span class="key">Age:</span>
-                    <span class="info"></span>
-                    <button class="arrow" onclick="plusOne(this, 'getOlder');">▲</button>
-                </div>
-                <div class="field" id="course">
-                    <span class="key">Course:</span>
-                    <span class="info"></span>
-                    <button class="arrow" onclick="plusOne(this, 'moveToNextCourse');">▲</button>
-                </div>
-                <div class="field" id="group">
-                    <span class="key">Group:</span>
-                    <span class="info"></span>
-                    <button class="change" onclick="revealInput(this)">change</button>
-                    <input id="group" class="n-vis" onfocusout="inputGroup(this); hideInput(this);">
-                </div>
-                <button class="get-button" onclick="getStudent()"><h4>Get student</h4></button>
+                <button class="get-button" onclick="getStudents()"><h4>Get students list</h4></button>
             </div>
         </div>
     </aside>

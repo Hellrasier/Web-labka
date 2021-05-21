@@ -115,6 +115,7 @@ header .menu:hover #arrow {
     bottom: 0;
     left: 0;
     right: 0;
+    overflow-y: auto;
     background: rgba(0,0,0,0.65);
     justify-content: center;
     z-index: 5 !important;  
@@ -130,6 +131,7 @@ header .menu:hover #arrow {
     min-width: 500px;
     padding: 25px;
     position: relative;
+    overflow-y: scroll;
     margin: 3em;
     z-index: 5 !important;
     order: 0
@@ -224,8 +226,6 @@ label #error-input {
 
 .get-button{
     display: block;
-    position: absolute;
-    bottom: 30px;
     left: 3em;
     font-size: 27px;
     width: 70%;

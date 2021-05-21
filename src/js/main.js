@@ -67,29 +67,34 @@ function checkInput(element) {
         return false
     } else {
         printSucces(input)
-        return false
+        return true
     }
     
 }
 
-var student = {
+var user = {
     name: '',
     surname: '',
     age: 0,
-    course: 0,
-    group: '**-**',
     getOlder: function() {
         this.age = parseInt(this.age)+1
-        updateStudent().then(data => console.log(data))
+        updateStudent(this).then(data => console.log(data))
     },
     changeSurname: function(new_sur) {
         this.surname = new_sur
-        updateStudent().then(data => console.log(data))
+        updateStudent(this).then(data => console.log(data))
     },
     changeName: function(new_nam) {
         this.name = new_nam
-        updateStudent().then(data => console.log(data))
-    },
+        updateStudent(this).then(data => console.log(data))
+    }
+}
+
+var student = {
+    __proto__: user,
+    course: 0,
+    group: '**-**',
+    faculty: '',
     moveToNextCourse: function() {
         this.course = parseInt(this.course)+1
         updateStudent().then(data => console.log(data))
@@ -97,30 +102,74 @@ var student = {
     changeGroup: function(grp) {
         this.group = grp
         updateStudent().then(data => console.log(data))
+    },
+    changeFaculty: function(faculty) {
+        this.faculty = faculty
+        updateStudent().then(data => console.log(data))
     }
 }   
 
-function createStudent(name, surname, age, course, group) {
-    student.name = name
-    student.surname = surname
-    student.age = age
-    student.course = course
-    student.group = group
+function createStudent(name_surname, age, course, group, faculty) {
+    let stud = {}
+    stud.__proto__ = student
+    stud.name = name_surname.split(' ')[0]
+    stud.surname = name_surname.split(' ')[1]
+    stud.age = age
+    stud.course = course
+    stud.group = group
+    stud.faculty = faculty
+    return stud
 }
 
-function displayStudent() {
-    for(let key in student) {
-        console.dir(student)
-        if (key == "getOlder") return 
-        var selector = modal2.querySelector('#' + key)
-        selector.children[1].innerText = student[key]
-    }
+function displayStudents(studList) {
+    let students_display = document.querySelector('#student_display')
+    students_display.innerHTML = ''
+    studList.forEach(([id, {name, surname, age, course, group, faculty}]) => {
+        stud = createStudent(name + " " + surname, age, course, group, faculty)
+        stud.id = id
+        students_display.innerHTML = students_display.innerHTML + `<div class="field" id="id">
+        <span class="key">Id:</span>
+        <span class="info">${stud.id}</span>
+        </div>
+    <div class="field" id="name">
+        <span class="key">Name:</span>
+        <span class="info">${stud.name}</span>
+    </div>
+    <div class="field" id="surname">
+        <span class="key">Surname:</span>
+        <span class="info">${stud.surname}</span>
+    </div>
+    <div class="field" id="age">
+        <span class="key">Age:</span>
+        <span class="info">${stud.age}</span>
+    </div>
+    <div class="field" id="course">
+        <span class="key">Course:</span>
+        <span class="info">${stud.course}</span>
+    </div>
+    <div class="field" id="group">
+        <span class="key">Group:</span>
+        <span class="info">${stud.group}</span>
+    </div>
+    <div class="field" id="faculty">
+        <span class="key">Faculty:</span>
+        <span class="info">${stud.faculty}</span>
+    </div>
+    <br>`
+        
+    })
+    // for(let key in student) {
+    //     console.dir(student)
+    //     if (key == "getOlder") return 
+    //     var selector = modal2.querySelector('#' + key)
+    //     selector.children[1].innerText = student[key]
+    // }
 }
 
-function postStudent() {
+function postStudent(stud) {
     var http = new XMLHttpRequest()
     http.open('POST', '/api/student/')
-    http.send(JSON.stringify(student))
+    http.send(JSON.stringify(stud))
     http.onload = function() {
         console.log(`Request status ${http.status}: ${http.statusText}; response: ${http.response}`)
     }
@@ -129,83 +178,94 @@ function postStudent() {
     }
 }
 
-function getStudent() {
+function getStudents() {
     var http = new XMLHttpRequest()
     http.open('GET', '/api/student/')
     http.send()
     http.onload = function() {
         console.log(`Request status ${http.status}: ${http.statusText}; response: ${http.response}`)
-        student = {...student, ...JSON.parse(http.response)}
-        console.log(student)
-        displayStudent()
+        studentsList = JSON.parse(http.response)
+        console.log(`Sudlist: ${studentsList}`)
+        displayStudents(studentsList)
     }
     http.onerror = function() {
         alert("Error couldn't make a request")
     }
 }
 
-async function updateStudent() {
+async function updateStudent(stud) {
+    console.log(stud)
    return fetch('/api/student', {
         headers: { 
             'Content-Type': 'application/json'
         },
         method: 'PUT',
-        body: JSON.stringify(student)
+        body: JSON.stringify(stud)
     }).then(response => response.json())
 }
 
-form.onsubmit = function() {
-    const inputs = [form.querySelector('#name-surname').value.split(' ')[0],
-    form.querySelector('#name-surname').value.split(' ')[1],
-    form.querySelector('#age').value,
-    form.querySelector('#course').value,
-    form.querySelector('#group').value]
+form.onsubmit = function(e) {
+    e.preventDefault()
+    const inputs = [form.querySelector('#name-surname'),
+    form.querySelector('#age'),
+    form.querySelector('#course'),
+    form.querySelector('#group'),
+    form.querySelector('#faculty')]
     if (inputs.every(checkInput)){
-        createStudent(...inputs)
+        let values = inputs.map(input => input.value)
         modal.classList.remove('visible')
         modal2.classList.add('visible')
-        postStudent()
+        postStudent(createStudent(...values))
+        getStudents()
     }
     return false
 }
 
-function revealInput(elem) {
-    elem.classList.add('n-vis')
-    elem.parentNode.children[3].classList.remove('n-vis')
-}
+// function revealInput(elem) {
+//     elem.classList.add('n-vis')
+//     elem.parentNode.children[3].classList.remove('n-vis')
+// }
 
-function hideInput(elem) {
-    elem.classList.add('n-vis')
-    elem.parentNode.children[2].classList.remove('n-vis')
-}
+// function hideInput(elem) {
+//     elem.classList.add('n-vis')
+//     elem.parentNode.children[2].classList.remove('n-vis')
+// }
 
-function inputName(elem) {
-    var name = elem.parentNode.children[3].value
-    elem.parentNode.children[1].innerText = name
-    student.changeName(name)
-}
+// function inputName(elem) {
+//     var name = elem.parentNode.children[3].value
+//     elem.parentNode.children[1].innerText = name
+//     student.changeName(name)
+// }
 
-function inputSurname(elem) {
-    var name = elem.parentNode.children[3].value
-    elem.parentNode.children[1].innerText = name
-    student.changeSurname(name)
-}
+// function inputSurname(elem) {
+//     var name = elem.parentNode.children[3].value
+//     elem.parentNode.children[1].innerText = name
+//     student.changeSurname(name)
+// }
 
-function inputGroup(elem) {
-    var name = elem.parentNode.children[3].value
-    elem.parentNode.children[1].innerText = name
-    student.changeGroup(name)
-}
+// function inputGroup(elem) {
+//     var name = elem.parentNode.children[3].value
+//     elem.parentNode.children[1].innerText = name
+//     student.changeGroup(name)
+// }
 
-function plusOne(elem, method) {
-    var number = parseInt(elem.parentNode.children[1].innerText) + 1
-    elem.parentNode.children[1].innerText = number
-    student[method]()
-}
+// function inputFaculty(elem) {
+//     var name = elem.parentNode.children[3].value
+//     elem.parentNode.children[1].innerText = name
+//     student.changeFaculty(name)
+// }
 
-// $('.modal-form').validate({
-//     onfocusout: checkInput
-// })
+// function plusOne(elem, method) {
+//     var number = parseInt(elem.parentNode.children[1].innerText) + 1
+//     elem.parentNode.children[1].innerText = number
+//     let id = parseInt(elem.parentNode.parentNode.querySelector('#id').querySelector('.info').innerText)
+//     console.log(`id: ${id}`)
+//     student[method]()
+// }
+
+// // $('.modal-form').validate({
+// //     onfocusout: checkInput
+// // })
 
 
 function checkString(text) {
